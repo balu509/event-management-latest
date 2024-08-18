@@ -1,0 +1,17 @@
+<% include layout %>
+<h1>Events</h1>
+<a href="/events/create">Create New Event</a>
+<ul>
+    <% events.forEach(event => { %>
+        <li>
+            <h2><%= event.title %></h2>
+            <p><%= event.description %></p>
+            <p><%= event.date %> at <%= event.time %></p>
+            <a href="/events/<%= event.id %>/register">Register</a>
+            <form action="/events/<%= event.id %>" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    <% }) %>
+</ul>

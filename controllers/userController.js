@@ -3,7 +3,10 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const { findUserByUsername, addUser } = require('../models/userModel');
 
-const JWT_SECRET = 'your_jwt_secret';
+// Access environment variables
+const EMAIL_USER = process.env.EMAIL_USER;
+const EMAIL_PASS = process.env.EMAIL_PASS;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const registerUser = async (req, res) => {
     const { username, password, email } = req.body;
@@ -18,11 +21,11 @@ const registerUser = async (req, res) => {
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
-        auth: { user: 'your_email@gmail.com', pass: 'your_password' }
+        auth: { user: EMAIL_USER, pass: EMAIL_PASS }
     });
 
     const mailOptions = {
-        from: 'your_email@gmail.com',
+        from: EMAIL_USER,
         to: email,
         subject: 'Registration Successful',
         text: `Hello ${username}, you have successfully registered!`
